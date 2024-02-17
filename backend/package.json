@@ -1,0 +1,14 @@
+{
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "bun app.ts",
+    "dev": "bun --hot app.ts"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "dependencies": {
+    "pg": "^8.7.1" 
+  }
+}
