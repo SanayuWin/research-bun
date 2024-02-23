@@ -18,17 +18,44 @@ Bun.serve({
   fetch(req) {
     const url = new URL(req.url);
     let response;
-    if (url.pathname === "/api/generate"){
-      response = generate(req);
-    }else if (url.pathname === "/api/query"){
-      response = previewData(req);
-    }else if (url.pathname === "/api/remove"){
-      response = removeData(req);
-    } else {
-      response = new Response("404!");
+    switch (url.pathname) {
+      case "/api/generate":
+        if (req.method === "POST") {
+          response = generate(req);
+        } else {
+          response = new Response("Method Not Allowed", { status: 405 });
+        }
+        break;
+      case "/api/query":
+        if (req.method === "GET") {
+          response = previewData(req);
+        } else {
+          response = new Response("Method Not Allowed", { status: 405 });
+        }
+        break;
+      case "/api/remove":
+        if (req.method === "DELETE") {
+          response = removeData(req);
+        } else {
+          response = new Response("Method Not Allowed", { status: 405 });
+        }
+        break;
+      default:
+        response = new Response("Not Found", { status: 404 });
+        break;
     }
-    // response.headers.append("Access-Control-Allow-Origin", "*");
     return setCORSHeaders(response);
+    // if (url.pathname === "/api/generate"){
+    //   response = generate(req);
+    // }else if (url.pathname === "/api/query"){
+    //   response = previewData(req);
+    // }else if (url.pathname === "/api/remove"){
+    //   response = removeData(req);
+    // } else {
+    //   response = new Response("404!");
+    // }
+    // // response.headers.append("Access-Control-Allow-Origin", "*");
+    // return setCORSHeaders(response);
   },
   error(error) {
     const response = new Response(`<pre>${error}\n${error.stack}</pre>`, {
