@@ -1,5 +1,3 @@
-// Define the generate function
-
 import db from '../config/db';
 
 
@@ -44,7 +42,10 @@ export async function generate(req: Request): Promise<Response> {
         }
         
         // return new Response(successCount);
-        return new Response(JSON.stringify({ msg: `Successfully inserted ${successCount} records.` }), {
+        return new Response(JSON.stringify({ 
+            msg: `Successfully inserted ${successCount} records.` 
+        }), {
+            status: 200,
             headers: { "Content-Type": "application/json" },
         });
     } catch (error) {
