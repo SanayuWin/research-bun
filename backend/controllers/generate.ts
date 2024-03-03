@@ -43,16 +43,27 @@ export async function generate(req: Request): Promise<Response> {
         
         // return new Response(successCount);
         return new Response(JSON.stringify({ 
-            msg: `Successfully inserted ${successCount} records.` 
+            msg: `Successfully inserted ${successCount} records.ทดสอบ` 
         }), {
             status: 200,
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json; charset=UTF-8",
+                "Connection": "keep-alive",
+                "Keep-Alive": "timeout=5",
+                "X-Powered-By": "Bun",
+                "Vary": "Accept-Encoding"
+            },
         });
     } catch (error) {
-        console.error('Error:', error);
         return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
+            status: 500,
+            headers: { 
+                "Content-Type": "application/json; charset=UTF-8",
+                "Connection": "keep-alive",
+                "Keep-Alive": "timeout=5",
+                "X-Powered-By": "Bun",
+                "Vary": "Accept-Encoding"
+            },
         });
     }
 }
@@ -63,13 +74,24 @@ export async function previewData(): Promise<Response> {
         // Replace the following with Bun's equivalent database query execution method
         const { rows } = await db.query('SELECT * FROM customers');
         return new Response(JSON.stringify(rows), {
-        headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json; charset=UTF-8",
+                "Connection": "keep-alive",
+                "Keep-Alive": "timeout=5",
+                "X-Powered-By": "Bun",
+                "Vary": "Accept-Encoding"
+            },
         });
     } catch (error) {
-        console.error('Error:', error);
         return new Response(JSON.stringify({ error: 'Server Error' }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
+            status: 500,
+            headers: { 
+                "Content-Type": "application/json; charset=UTF-8",
+                "Connection": "keep-alive",
+                "Keep-Alive": "timeout=5",
+                "X-Powered-By": "Bun",
+                "Vary": "Accept-Encoding"
+            },
         });
     }
 }
@@ -79,13 +101,24 @@ export async function removeData(): Promise<Response> {
         // Replace the following with Bun's equivalent database query execution method
         await db.query('DELETE FROM customers');
         return new Response(JSON.stringify({ msg: 'All records deleted successfully.' }), {
-        headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json; charset=UTF-8",
+                "Connection": "keep-alive",
+                "Keep-Alive": "timeout=5",
+                "X-Powered-By": "Bun",
+                "Vary": "Accept-Encoding"
+            },
         });
     } catch (error) {
-        console.error('Error:', error);
         return new Response(JSON.stringify({ error: 'Server Error' }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
+            status: 500,
+            headers: { 
+                "Content-Type": "application/json; charset=UTF-8",
+                "Connection": "keep-alive",
+                "Keep-Alive": "timeout=5",
+                "X-Powered-By": "Bun",
+                "Vary": "Accept-Encoding"
+            },
         });
     }
 }
