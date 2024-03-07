@@ -3,47 +3,39 @@ import db from '../config/db';
 
 export async function generate(req: Request): Promise<Response> {
     try {
-        const queryParams = new URL(req.url).searchParams;
-        const numRows = queryParams.has('id') ? parseInt(queryParams.get('id')!) : 1;
-        let successCount = 0;
+    
+        const firstName = generateRandomName();
+        const lastName = generateRandomName();
+        const fullName = firstName + lastName;
+        const dataRow = {
+            First_Name: firstName,
+            Last_Name: lastName,
+            Email: generateRandomEmail(fullName),
+            Date_of_Birth: generateRandomDate(),
+            Gender: generateRandomGender(),
+            Country: generateRandomCountry(),
+            Annual_Income: generateRandomIncome(),
+            Registration_Date: generateRandomDate(),
+            Purchase_Type: generateRandomPurchaseType()
+        };
 
-        for (let i = 0; i < numRows; i++) {
-            const firstName = generateRandomName();
-            const lastName = generateRandomName();
-            const fullName = firstName + lastName;
-            const dataRow = {
-                First_Name: firstName,
-                Last_Name: lastName,
-                Email: generateRandomEmail(fullName),
-                Date_of_Birth: generateRandomDate(),
-                Gender: generateRandomGender(),
-                Country: generateRandomCountry(),
-                Annual_Income: generateRandomIncome(),
-                Registration_Date: generateRandomDate(),
-                Purchase_Type: generateRandomPurchaseType()
-            };
-
-            try {
-                // Replace the following query execution with Bun's equivalent database query execution method
-                const query = `
-                INSERT INTO customers (
-                    first_name, last_name, email, date_of_birth, gender, 
-                    country, annual_income, registration_date, purchase_type
-                ) VALUES (
-                    $1, $2, $3, $4, $5, $6, $7, $8, $9
-                )
-                `;
-                // Ensure db.query is properly promisified or awaitable
-                await db.query(query, Object.values(dataRow));
-                successCount++;
-            } catch (insertError) {
-                console.error('Error inserting data:', insertError);
-            }
+        try {
+            const query = `
+            INSERT INTO customers (
+                first_name, last_name, email, date_of_birth, gender, 
+                country, annual_income, registration_date, purchase_type
+            ) VALUES (
+                $1, $2, $3, $4, $5, $6, $7, $8, $9
+            )
+            `;
+            await db.query(query, Object.values(dataRow));
+        } catch (insertError) {
+            console.error('Error inserting data:', insertError);
         }
+       
         
-        // return new Response(successCount);
         return new Response(JSON.stringify({ 
-            msg: `Successfully inserted ${successCount} records.ทดสอบ` 
+            msg: `Successfully insert` 
         }), {
             status: 200,
             headers: { 
