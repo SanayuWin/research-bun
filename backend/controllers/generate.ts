@@ -6,6 +6,7 @@ export async function generate(req: Request): Promise<Response> {
         const firstName = generateRandomName();
         const lastName = generateRandomName();
         const fullName = firstName + lastName;
+        const randomUrl = `https://randomurl.com/${fullName}`;
         const dataRow = {
             First_Name: firstName,
             Last_Name: lastName,
@@ -15,16 +16,17 @@ export async function generate(req: Request): Promise<Response> {
             Country: generateRandomCountry(),
             Annual_Income: generateRandomIncome(),
             Registration_Date: generateRandomDate(),
-            Purchase_Type: generateRandomPurchaseType()
+            Purchase_Type: generateRandomPurchaseType(),
+            URL_Temp: randomUrl
         };
 
         try {
             const query = `
             INSERT INTO customers (
                 first_name, last_name, email, date_of_birth, gender, 
-                country, annual_income, registration_date, purchase_type
+                country, annual_income, registration_date, purchase_type, url_temp
             ) VALUES (
-                $1, $2, $3, $4, $5, $6, $7, $8, $9
+                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
             )
             `;
             await db.query(query, Object.values(dataRow));
@@ -42,7 +44,8 @@ export async function generate(req: Request): Promise<Response> {
                 "Connection": "keep-alive",
                 "Keep-Alive": "timeout=5",
                 "X-Powered-By": "Bun",
-                "Vary": "Accept-Encoding"
+                "Vary": "Accept-Encoding",
+                "Access-Control-Allow-Origin": "*"
             },
         });
     } catch (error) {
@@ -53,7 +56,8 @@ export async function generate(req: Request): Promise<Response> {
                 "Connection": "keep-alive",
                 "Keep-Alive": "timeout=5",
                 "X-Powered-By": "Bun",
-                "Vary": "Accept-Encoding"
+                "Vary": "Accept-Encoding",
+                "Access-Control-Allow-Origin": "*"
             },
         });
     }
@@ -70,7 +74,8 @@ export async function previewData(): Promise<Response> {
                 "Connection": "keep-alive",
                 "Keep-Alive": "timeout=5",
                 "X-Powered-By": "Bun",
-                "Vary": "Accept-Encoding"
+                "Vary": "Accept-Encoding",
+                "Access-Control-Allow-Origin": "*"
             },
         });
     } catch (error) {
@@ -81,7 +86,8 @@ export async function previewData(): Promise<Response> {
                 "Connection": "keep-alive",
                 "Keep-Alive": "timeout=5",
                 "X-Powered-By": "Bun",
-                "Vary": "Accept-Encoding"
+                "Vary": "Accept-Encoding",
+                "Access-Control-Allow-Origin": "*"
             },
         });
     }
@@ -97,7 +103,8 @@ export async function removeData(): Promise<Response> {
                 "Connection": "keep-alive",
                 "Keep-Alive": "timeout=5",
                 "X-Powered-By": "Bun",
-                "Vary": "Accept-Encoding"
+                "Vary": "Accept-Encoding",
+                "Access-Control-Allow-Origin": "*"
             },
         });
     } catch (error) {
@@ -108,7 +115,8 @@ export async function removeData(): Promise<Response> {
                 "Connection": "keep-alive",
                 "Keep-Alive": "timeout=5",
                 "X-Powered-By": "Bun",
-                "Vary": "Accept-Encoding"
+                "Vary": "Accept-Encoding",
+                "Access-Control-Allow-Origin": "*"
             },
         });
     }

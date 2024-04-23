@@ -9,6 +9,7 @@
     "bun-types": "latest"
   },
   "dependencies": {
-    "pg": "^8.7.1" 
+    "pg": "^8.7.1",
+    "qrcode": "^1.5.3"
   }
 }
