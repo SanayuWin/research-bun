@@ -66,7 +66,6 @@ export async function generate(req: Request): Promise<Response> {
 
 export async function previewData(): Promise<Response> {
     try {
-        // Replace the following with Bun's equivalent database query execution method
         const { rows } = await db.query('SELECT * FROM customers');
         return new Response(JSON.stringify(rows), {
             headers: { 
