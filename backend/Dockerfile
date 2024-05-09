@@ -1,5 +1,5 @@
 # Use the official Bun image as the base image
-FROM oven/bun
+FROM oven/bun:1.0
 
 # Set the working directory inside the container
 WORKDIR /usr/src/app
