@@ -1,5 +1,6 @@
 import db from '../config/db';
 
+
 export async function generate(req: Request): Promise<Response> {
     try {
     

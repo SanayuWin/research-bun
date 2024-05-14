@@ -1,6 +1,6 @@
 const PORT: number = +(process.env.PORT || 8087);
 import { generate, removeData, previewData } from "./controllers/generate";
-import { genQRCode } from "./controllers/qrcode";
+
 
 Bun.serve({
   port: PORT,
@@ -25,13 +25,6 @@ Bun.serve({
       case "/api/remove":
         if (req.method === "DELETE") {
           response = removeData(req);
-        } else {
-          response = new Response("Method Not Allowed", { status: 405 });
-        }
-        break;
-      case "/api/genqrcode":
-        if (req.method === "GET") {
-          response = genQRCode(req);
         } else {
           response = new Response("Method Not Allowed", { status: 405 });
         }
